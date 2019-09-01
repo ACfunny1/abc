@@ -1,0 +1,252 @@
+* {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+a {
+    text-decoration: none;
+}
+html,body,.pageOne {
+    height: 100vh;
+}
+
+main {
+    position: relative;
+    height: calc(100% - 24vh);
+    border: 1px solid black
+}
+
+footer {
+    position: relative;
+    height: 24vh;
+    border: 1px solid black
+}
+.pageOne {
+    position: relative;
+    width: 100%;
+}
+
+.bg {
+    position: absolute;
+    z-index: -2;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    width: 100%;
+    height: 100vh;
+    background-image: url('https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3365849021,1274509569&fm=26&gp=0.jpg');
+    background-size: cover;
+    filter: blur(3px)
+}
+
+.bg::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    width: 100%;
+    height: 100vh;
+    background-color: rgb(0, 0, 0,0.3)
+}
+
+.coverPic {
+    position: absolute;
+    left: 12vh;
+    top: 12vh;
+    z-index: 0;
+    width: 40vh;
+    height: 40vh;
+    border: 1px solid black;
+    background-image: url('https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3365849021,1274509569&fm=26&gp=0.jpg');
+    background-size: cover;
+}
+
+.btn_heart {
+    position: absolute;
+    left: 13vh;
+    top: 57vh;
+    font-family: 'iconfont';
+    font-size: 7vh;
+    color: rgb(133, 133, 133)
+}
+
+.btn_start {
+    position: absolute;
+    left: 28vh;
+    top: 56.5vh;
+    font-family: 'iconfont';
+    font-size: 8.4vh;
+    color: rgb(133, 133, 133)
+}
+
+.btn_next {
+    position: absolute;
+    left: 43vh;
+    top: 56.5vh;
+    font-family: 'iconfont';
+    font-size: 8.3vh;
+    color: rgb(133, 133, 133)
+}
+
+.label {
+    position: absolute;
+    left: 60vh;
+    top: 12vh;
+    padding: 0 1vh;
+    width: 7vh;
+    height: 3vh;
+    background-color: rgb(52,133,233);
+    font-size: 2vh;
+    text-align: center;
+}
+
+.title {
+    position: absolute;
+    left: 60vh;
+    top: 15vh;
+    font-size: 5vh;
+    color: white;
+}
+
+.bofang_icon {
+    position: absolute;
+    left: 60vh;
+    top: 30vh;
+    font-family: 'iconfont';
+    font-size: 3vh;
+    color: white;
+}
+.bofang_counts {
+    position: absolute;
+    left: 63.5vh;
+    top: 30vh;
+    font-size: 2.5vh;
+    color: white;
+}
+
+.shoucang_icon {
+    position: absolute;
+    left: 85vh;
+    top: 30vh;
+    font-family: 'iconfont';
+    font-size: 3vh;
+    color: white;
+}
+.shoucang_counts {
+    position: absolute;
+    left: 88.5vh;
+    top: 30vh;
+    font-size: 2.5vh;
+    color: white;
+}
+
+.dianzan_icon {
+    position: absolute;
+    left: 110vh;
+    top: 30vh;
+    font-family: 'iconfont';
+    font-size: 3vh;
+    color: white;
+}
+.dianzan_counts {
+    position: absolute;
+    left: 113.5vh;
+    top: 30vh;
+    font-size: 2.5vh;
+    color: white;
+}
+
+.music_bar {
+    position: absolute;
+    left: 60vh;
+    top: 48vh;
+    width: 100vh;
+    height: 0.5vh;
+    background-color: white;
+}
+.music_bar2 {
+    position: absolute;
+    left: 60vh;
+    top: 48vh;
+    width: 10vh;
+    height: 0.5vh;
+    background-color: rgb(52,133,233);
+}
+.music_time {
+    position: absolute;
+    left: 161vh;
+    top: 47vh;
+    color: white;
+}
+
+.singer {
+    position: absolute;
+    left: 60vh;
+    top: 52vh;
+    font-size: 3vh;
+    color: white;
+}
+.lyric {
+    position: absolute;
+    left: 60vh;
+    top: 60vh;
+    font-size: 2.5vh;
+    color: white;
+}
+
+footer::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    width: 100%;
+    height: 100vh;
+    background-color: rgb(255, 255, 255,0.4)
+}
+
+.btn_left {
+    position: absolute;
+    left: 12vh;
+    top: 5vh;
+    font-family: 'iconfont';
+    font-size: 10vh;
+    color: black;
+}
+.btn_right {
+    position: absolute;
+    right: 12vh;
+    top: 5vh;
+    font-family: 'iconfont';
+    font-size: 10vh;
+    color: black;
+}
+
+.box {
+
+    margin-left: 25vh;
+}
+.box_bg {
+    margin-top: 5vh;
+    width: 15vh;
+    height: 15vh;
+    background-image: url('https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3365849021,1274509569&fm=26&gp=0.jpg');
+    background-size: cover;
+}
+.box li {
+    float: left;
+    margin-right: 1vh;
+}
+.box li::after {
+    content: '';
+    display: block;
+    clear: both;
+}
+

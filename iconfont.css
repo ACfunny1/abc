@@ -1,0 +1,19 @@
+@font-face {
+    font-family: 'iconfont';  /* project id 1335497 */
+    src: url('https://at.alicdn.com/t/font_1335497_8jzhg3n65yp.eot');
+    src: url('https://at.alicdn.com/t/font_1335497_8jzhg3n65yp.eot?#iefix') format('embedded-opentype'),
+    url('https://at.alicdn.com/t/font_1335497_8jzhg3n65yp.woff2') format('woff2'),
+    url('https://at.alicdn.com/t/font_1335497_8jzhg3n65yp.woff') format('woff'),
+    url('https://at.alicdn.com/t/font_1335497_8jzhg3n65yp.ttf') format('truetype'),
+    url('https://at.alicdn.com/t/font_1335497_8jzhg3n65yp.svg#iconfont') format('svg');
+  }
+
+  /*爱心：&#xeca1;
+  暂停：&#xe63b;
+  播放：&#xe633;
+  下一首：&#xe602;
+  上一首：&#xe603;
+  耳机：&#xe606;
+  点赞：&#xe60c;
+  左箭头：&#xe64e;
+  右箭头：&#xe62e;*/

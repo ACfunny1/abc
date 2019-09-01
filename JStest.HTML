@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="css.css">
+	<link rel="stylesheet" href="iconfont.css">
+</head>
+<body>
+	<div class="pageOne">
+		<main>
+			<div class="coverPic"></div>
+			<a href="#" class="btn_heart">&#xeca1</a>
+			<a href="#" class="btn_start">&#xe633</a>
+			<a href="#" class="btn_next">&#xe602</a>
+			<span class="label">90后</span>	
+			<p class="title">Sunshine Girl</p>
+
+			<span class="bofang_icon">&#xe606</span>
+			<span class="bofang_counts">123</span>
+			<span class="shoucang_icon">&#xeca1</span>
+			<span class="shoucang_counts">123</span>
+			<span class="dianzan_icon">&#xe60c</span>
+			<span class="dianzan_counts">123</span>
+
+			<div class="music_bar"></div>
+			<div class="music_bar2"></div>
+			<div class="music_time">0:00</div>
+
+			<span class="singer">陈奕迅</span>
+			<span class="lyric">okokokokokokokok</span>
+		</main>
+		<div class="bg"></div>
+		<footer>
+			<a href="#" class="btn_left">&#xe64e</a>
+			<a href='#' class="btn_right">&#xe62e</a>
+			<ul class="box">
+				<li>
+					<div class="box_bg"></div>
+					<span>秋日枫叶</span>
+				</li>
+				<li>
+					<div class="box_bg"></div>
+					<span>秋日枫叶</span>
+				</li>
+				<li>
+					<div class="box_bg"></div>
+					<span>秋日枫叶</span>
+				</li>
+			</ul>
+		</footer>
+	</div>
+	<div class="pageTwo"></div>
+
+	<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+	<script>
+
+		getData()
+
+
+		function getData (callback){
+			$.ajax({
+				url:'http://api.jirengu.com/fm/getChannels.php',
+				type:'get'
+			}).done(function(ret){
+				callback(ret)
+			})
+		}
+	</script>
+</body>
+</html>
