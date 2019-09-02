@@ -7,6 +7,11 @@
 a {
     text-decoration: none;
 }
+
+ul {
+    list-style-type: none;
+}
+
 html,body,.pageOne {
     height: 100vh;
 }
@@ -218,7 +223,8 @@ footer::after {
     top: 5vh;
     font-family: 'iconfont';
     font-size: 10vh;
-    color: black;
+    color: rgb(255,255,255,0.6);
+    z-index: 4;
 }
 .btn_right {
     position: absolute;
@@ -226,27 +232,42 @@ footer::after {
     top: 5vh;
     font-family: 'iconfont';
     font-size: 10vh;
-    color: black;
+    color: rgb(255,255,255,0.6);
+    z-index: 4;
 }
 
 .box {
-
-    margin-left: 25vh;
+    position: absolute;
+    left: 0vh;
+    right: 0vh;
+    z-index: 0;
+    height: 24vh;
+    padding-left: 10vh
 }
 .box_bg {
-    margin-top: 5vh;
+    margin: 2vh;
     width: 15vh;
     height: 15vh;
-    background-image: url('https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3365849021,1274509569&fm=26&gp=0.jpg');
     background-size: cover;
 }
-.box li {
-    float: left;
-    margin-right: 1vh;
+
+
+li>p {
+    text-align: center;
+    font-size: 2vh;
 }
-.box li::after {
-    content: '';
+
+li {
+    float: left;
+    margin-right: 0.5vh;
+    margin-top: 1.5vh;
+}
+
+.clear {
     display: block;
     clear: both;
 }
 
+.active {
+    box-shadow: 0vh 0vh 1vh 1vh  rgb(255,255,255)
+}

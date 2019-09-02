@@ -34,20 +34,7 @@
 		<footer>
 			<a href="#" class="btn_left">&#xe64e</a>
 			<a href='#' class="btn_right">&#xe62e</a>
-			<ul class="box">
-				<li>
-					<div class="box_bg"></div>
-					<span>秋日枫叶</span>
-				</li>
-				<li>
-					<div class="box_bg"></div>
-					<span>秋日枫叶</span>
-				</li>
-				<li>
-					<div class="box_bg"></div>
-					<span>秋日枫叶</span>
-				</li>
-			</ul>
+			<ul class="box"></ul>
 		</footer>
 	</div>
 	<div class="pageTwo"></div>
@@ -55,15 +42,84 @@
 	<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
 	<script>
 
-		getData()
+		start()
+		setPicClick()
+		setLR_Click()
 
+		function start(){
+			getFmPic(function(data){
+				console.log(data.channels)
+				$.each(data.channels,function(idx,e){
+					var $node = $liNode(e)
+					$node.appendTo('.box')
+				})
+				clearF().appendTo('.box')
+				setBoxWidth()
+			})
+		}
 
-		function getData (callback){
+		function getFmPic (callback){
 			$.ajax({
 				url:'http://api.jirengu.com/fm/getChannels.php',
-				type:'get'
+				type:'get',
+				dataType:'jsonp'
 			}).done(function(ret){
 				callback(ret)
+			})
+		}
+
+		function $liNode(e){
+			var tpl = ''
+			tpl += '<li>'
+			tpl += '<a href="#">'
+			/*tpl += '<div class="box_bg" style="background-image:url('+e.cover_small+')"></div>'*/
+			tpl += '<div class="box_bg" style="background-image:url('+e.cover_small+')" mid="url('+e.cover_middle+')" big="url('+e.cover_big+')"></div>'
+			tpl += '</a>'
+			tpl += '<p>'+e.name+'</p>'
+			tpl += '</li>'
+			return $(tpl)
+		}
+
+		function clearF(){
+			var tpl = ''
+			tpl += '<div class = "clear"></div>'
+
+			return $(tpl)
+		}
+
+		function setBoxWidth(){
+			var node = $('.box')
+			var sum = (parseInt(node.children().length)-1)*15
+			node.css(
+				"width",sum+'vh'
+			)
+		}
+
+		function setPicClick(){
+			$('.box').on('click','.box_bg',function(e){
+				$(e.target).parents('li').siblings().find('.box_bg').removeClass('active')
+				$(e.target).addClass('active')
+				var midStyle = $(e.target).attr('mid')
+				var bigStyle = $(e.target).attr('big')
+				console.log(midStyle)
+				$('.coverPic').css('background-image',midStyle)
+				$('.bg').css('background-image',bigStyle)
+			})
+		}
+
+		function setLR_Click(){
+			var leftSum = 0
+			var $box = $('.box')
+			$('.btn_left').on('click',function(){
+				if(parseInt($box.position().left)<0){
+					$box.animate({'left':(leftSum+=100)+'vh'},600)
+				}
+			})
+
+			$('.btn_right').on('click',function(){
+				if(-parseInt($box.position().left)/$box.width() <0.8){
+					$box.animate({'left':(leftSum-=100)+'vh'},600)
+				}
 			})
 		}
 	</script>
