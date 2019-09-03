@@ -45,10 +45,12 @@
 		start()
 		setPicClick()
 		setLR_Click()
+		getSong()
+		setNextSong()
 
 		function start(){
 			getFmPic(function(data){
-				console.log(data.channels)
+				//console.log(data.channels)
 				$.each(data.channels,function(idx,e){
 					var $node = $liNode(e)
 					$node.appendTo('.box')
@@ -101,7 +103,7 @@
 				$(e.target).addClass('active')
 				var midStyle = $(e.target).attr('mid')
 				var bigStyle = $(e.target).attr('big')
-				console.log(midStyle)
+				//console.log(midStyle)
 				$('.coverPic').css('background-image',midStyle)
 				$('.bg').css('background-image',bigStyle)
 			})
@@ -120,6 +122,37 @@
 				if(-parseInt($box.position().left)/$box.width() <0.8){
 					$box.animate({'left':(leftSum-=100)+'vh'},600)
 				}
+			})
+		}
+
+		function getSong(){
+			$.ajax({
+				url:'http://api.jirengu.com/fm/getSong.php',
+				type:'get',
+				dataType:'jsonp'
+			}).done(function(ret){
+				$.each(ret.song,function(idx,e){
+					console.log(e)
+				})
+			})
+		}
+
+		function setNextSong(){
+			$('.btn_next').on('click',function(){
+				console.log('ok')
+			})
+		}
+
+		function getLyric(){
+			$.ajax({
+				url:'http://api.jirengu.com/fm/getLyric.php',
+				type:'get',
+				dataType:'jsonp',
+				data: {
+					sid:290850128
+				}
+			}).done(function(ret){
+				console.log(ret)
 			})
 		}
 	</script>
