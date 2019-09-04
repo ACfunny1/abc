@@ -89,6 +89,16 @@ footer {
     color: rgb(133, 133, 133)
 }
 
+.btn_pause {
+    position: absolute;
+    left: 28vh;
+    top: 56.5vh;
+    font-family: 'iconfont';
+    font-size: 8.4vh;
+    color: rgb(133, 133, 133);
+    display: none
+}
+
 .btn_next {
     position: absolute;
     left: 43vh;
@@ -164,6 +174,10 @@ footer {
     top: 30vh;
     font-size: 2.5vh;
     color: white;
+}
+
+.allBar {
+    width: 100vh;
 }
 
 .music_bar {

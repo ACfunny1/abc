@@ -3,6 +3,11 @@
 <head>
 	<title></title>
 	<meta charset="utf-8">
+	<meta name="referrer" content="never">
+	<!--关于使用file_link
+		不能播放的问题，是因为百度使用Http中的Referer头字段来防止盗链，
+		在HTML文件中加上 <meta name="referrer" content="never">
+		这一句让发送出去的Http包都不含Referer字段就行了-->
 	<link rel="stylesheet" href="css.css">
 	<link rel="stylesheet" href="iconfont.css">
 </head>
@@ -12,6 +17,7 @@
 			<div class="coverPic"></div>
 			<a href="#" class="btn_heart">&#xeca1</a>
 			<a href="#" class="btn_start">&#xe633</a>
+			<a href="#" class="btn_pause">&#xe63b</a>
 			<a href="#" class="btn_next">&#xe602</a>
 			<span class="label">90后</span>	
 			<p class="title">Sunshine Girl</p>
@@ -23,12 +29,15 @@
 			<span class="dianzan_icon">&#xe60c</span>
 			<span class="dianzan_counts">123</span>
 
-			<div class="music_bar"></div>
-			<div class="music_bar2"></div>
-			<div class="music_time">0:00</div>
+			<div class="allBar">
+				<div class="music_bar"></div>
+				<div class="music_bar2"></div>
+			</div>
+			<div class="music_time"></div>
 
-			<span class="singer">陈奕迅</span>
-			<span class="lyric">okokokokokokokok</span>
+			<span class="singer"></span>
+			<span class="lyric"></span>
+
 		</main>
 		<div class="bg"></div>
 		<footer>
@@ -41,13 +50,7 @@
 
 	<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
 	<script>
-
-		start()
-		setPicClick()
-		setLR_Click()
-		getSong()
-		setNextSong()
-
+		
 		function start(){
 			getFmPic(function(data){
 				//console.log(data.channels)
@@ -104,23 +107,33 @@
 				var midStyle = $(e.target).attr('mid')
 				var bigStyle = $(e.target).attr('big')
 				//console.log(midStyle)
-				$('.coverPic').css('background-image',midStyle)
 				$('.bg').css('background-image',bigStyle)
+				var tag = $(e.target).parent().siblings('p').text()
+				$('.label').text(tag)
 			})
 		}
 
 		function setLR_Click(){
 			var leftSum = 0
 			var $box = $('.box')
+			var isAnimate = false
 			$('.btn_left').on('click',function(){
+				if(isAnimate) return//防止短时间多次点击使下面的判断无效
 				if(parseInt($box.position().left)<0){
-					$box.animate({'left':(leftSum+=100)+'vh'},600)
+					isAnimate = true
+					$box.animate({'left':(leftSum+=100)+'vh'},600,function(){
+						isAnimate = false
+					})
 				}
 			})
 
 			$('.btn_right').on('click',function(){
+				if(isAnimate) return
 				if(-parseInt($box.position().left)/$box.width() <0.8){
-					$box.animate({'left':(leftSum-=100)+'vh'},600)
+					isAnimate = true
+					$box.animate({'left':(leftSum-=100)+'vh'},600,function(){
+						isAnimate = false
+					})
 				}
 			})
 		}
@@ -131,16 +144,19 @@
 				type:'get',
 				dataType:'jsonp'
 			}).done(function(ret){
-				$.each(ret.song,function(idx,e){
-					console.log(e)
-				})
+				var song = ret.song[0]
+				//console.log(ret.song[0])
+				setMusic(song)
 			})
 		}
 
-		function setNextSong(){
-			$('.btn_next').on('click',function(){
-				console.log('ok')
-			})
+		var audioObject = new Audio()
+		function setMusic(e){
+			$('.title').text(e.title)
+			$('.singer').text(e.artist)
+			$('.coverPic').css('background-image','url('+e.picture+')')
+			audioObject.src = e.url
+			audioObject.autoplay = true
 		}
 
 		function getLyric(){
@@ -149,12 +165,84 @@
 				type:'get',
 				dataType:'jsonp',
 				data: {
-					sid:290850128
+					sid:246946
 				}
 			}).done(function(ret){
 				console.log(ret)
+			}).fail(function(){
+				$('.lyric').text('未找到歌词')
 			})
 		}
+
+		function nextSong(){
+			$('.btn_next').on('click',function(){
+				getSong()
+			})
+		}
+
+		function isAudioPlaying(){
+			audioObject.addEventListener('playing',function(){
+				$('.btn_start').hide()
+				$('.btn_pause').show()
+			})
+			audioObject.addEventListener('pause',function(){
+				$('.btn_start').show()
+				$('.btn_pause').hide()
+			})
+		}
+
+		function pause_start_Song(){
+			$('.btn_pause').on('click',function(){
+				audioObject.pause()
+			})
+			$('.btn_start').on('click',function(){
+				audioObject.play()
+			})
+		}
+
+		function getTimeupdate(){
+			var time = true
+			audioObject.ontimeupdate = function(){
+				var _this = this
+				if(time){
+					//console.log(_this.currentTime)
+					setBar()
+					time = false
+					setTimeout(function(){
+						time = true
+					},1000)
+				}
+			}
+		}
+
+		function setBar(){
+			var curTime = audioObject.currentTime
+			var durTime = audioObject.duration
+			var percent = Math.floor(curTime/durTime*100)+'vh'
+			$('.music_bar2').css('width',percent)
+			var min = Math.floor(durTime/60)+''
+			var sec = Math.floor(durTime%60)+''
+			var leftMin = Math.floor(curTime/60)+''
+			var leftSec = Math.floor(curTime%60)+''
+			if(leftSec.length == 1){
+				$('.music_time').text(leftMin+':'+'0'+leftSec+'/'+min+':'+sec)
+			}else{
+				$('.music_time').text(leftMin+':'+leftSec+'/'+min+':'+sec)
+			}
+		}
+
+
+		start()
+		setPicClick()
+		setLR_Click()
+		getSong()
+
+		getLyric()
+
+		nextSong()
+		isAudioPlaying()
+		pause_start_Song()
+		getTimeupdate()
 	</script>
 </body>
 </html>
