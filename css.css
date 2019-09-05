@@ -79,6 +79,9 @@ footer {
     font-size: 7vh;
     color: rgb(133, 133, 133)
 }
+.btn_heart:hover {
+    color: rgb(177,177,177)
+}
 
 .btn_start {
     position: absolute;
@@ -87,6 +90,9 @@ footer {
     font-family: 'iconfont';
     font-size: 8.4vh;
     color: rgb(133, 133, 133)
+}
+.btn_start:hover {
+    color: rgb(177,177,177)
 }
 
 .btn_pause {
@@ -98,6 +104,9 @@ footer {
     color: rgb(133, 133, 133);
     display: none
 }
+.btn_pause:hover {
+    color: rgb(177,177,177)
+}
 
 .btn_next {
     position: absolute;
@@ -106,6 +115,9 @@ footer {
     font-family: 'iconfont';
     font-size: 8.3vh;
     color: rgb(133, 133, 133)
+}
+.btn_next:hover {
+    color: rgb(177,177,177)
 }
 
 .label {
@@ -176,9 +188,6 @@ footer {
     color: white;
 }
 
-.allBar {
-    width: 100vh;
-}
 
 .music_bar {
     position: absolute;
@@ -201,6 +210,7 @@ footer {
     left: 161vh;
     top: 47vh;
     color: white;
+    font-size: 2.5vh
 }
 
 .singer {

@@ -50,7 +50,7 @@
 
 	<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
 	<script>
-		
+		//获取footer里的专辑页面，并把他们新建到dom中
 		function start(){
 			getFmPic(function(data){
 				//console.log(data.channels)
@@ -62,7 +62,7 @@
 				setBoxWidth()
 			})
 		}
-
+		//获取专辑图片和名称
 		function getFmPic (callback){
 			$.ajax({
 				url:'http://api.jirengu.com/fm/getChannels.php',
@@ -72,7 +72,7 @@
 				callback(ret)
 			})
 		}
-
+		//footer中每个专辑的界面
 		function $liNode(e){
 			var tpl = ''
 			tpl += '<li>'
@@ -84,14 +84,14 @@
 			tpl += '</li>'
 			return $(tpl)
 		}
-
+		//新建一个用来清除浮动
 		function clearF(){
 			var tpl = ''
 			tpl += '<div class = "clear"></div>'
 
 			return $(tpl)
 		}
-
+		//按照数量设置这些专辑的父元素容器的宽度
 		function setBoxWidth(){
 			var node = $('.box')
 			var sum = (parseInt(node.children().length)-1)*15
@@ -99,7 +99,7 @@
 				"width",sum+'vh'
 			)
 		}
-
+		//每个专辑的点击事件
 		function setPicClick(){
 			$('.box').on('click','.box_bg',function(e){
 				$(e.target).parents('li').siblings().find('.box_bg').removeClass('active')
@@ -110,9 +110,10 @@
 				$('.bg').css('background-image',bigStyle)
 				var tag = $(e.target).parent().siblings('p').text()
 				$('.label').text(tag)
+				getSong()
 			})
 		}
-
+		//专辑左右一页的按钮事件
 		function setLR_Click(){
 			var leftSum = 0
 			var $box = $('.box')
@@ -137,7 +138,7 @@
 				}
 			})
 		}
-
+		//获取随机歌曲
 		function getSong(){
 			$.ajax({
 				url:'http://api.jirengu.com/fm/getSong.php',
@@ -150,7 +151,8 @@
 			})
 		}
 
-		var audioObject = new Audio()
+		var audioObject = new Audio()//设置全局变量
+		//设置音乐界面的各个数据
 		function setMusic(e){
 			$('.title').text(e.title)
 			$('.singer').text(e.artist)
@@ -158,7 +160,7 @@
 			audioObject.src = e.url
 			audioObject.autoplay = true
 		}
-
+		//获取歌词数据
 		function getLyric(){
 			$.ajax({
 				url:'http://api.jirengu.com/fm/getLyric.php',
@@ -173,13 +175,13 @@
 				$('.lyric').text('未找到歌词')
 			})
 		}
-
+		//设置下一首按钮的事件
 		function nextSong(){
 			$('.btn_next').on('click',function(){
 				getSong()
 			})
 		}
-
+		//判断音乐是否正在播放，并控制播放暂停按钮的显示
 		function isAudioPlaying(){
 			audioObject.addEventListener('playing',function(){
 				$('.btn_start').hide()
@@ -190,7 +192,7 @@
 				$('.btn_pause').hide()
 			})
 		}
-
+		//设置播放暂停按钮的事件
 		function pause_start_Song(){
 			$('.btn_pause').on('click',function(){
 				audioObject.pause()
@@ -199,7 +201,7 @@
 				audioObject.play()
 			})
 		}
-
+		//函数节流控制并获取timeupdate
 		function getTimeupdate(){
 			var time = true
 			audioObject.ontimeupdate = function(){
@@ -214,7 +216,7 @@
 				}
 			}
 		}
-
+		//设置进度条，时间
 		function setBar(){
 			var curTime = audioObject.currentTime
 			var durTime = audioObject.duration
@@ -236,9 +238,7 @@
 		setPicClick()
 		setLR_Click()
 		getSong()
-
 		getLyric()
-
 		nextSong()
 		isAudioPlaying()
 		pause_start_Song()
